@@ -1,4 +1,4 @@
-#include "spatiodistro.h"
+#include "graphic/spatiodistro.h"
 #include <QtWidgets/QApplication>
 
 int main(int argc, char *argv[])
