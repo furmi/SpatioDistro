@@ -14,14 +14,6 @@
 /*
 Ce fichier contient toutes les classes personnalisées
 utilisées pour la création du widget PositionForm.
-
-Décomposition du Widget (en terme de widget personnalisés)
-PositionForm
-- CommonGroupBar
--- MTlayout
-- ColonieGroupBar
--- MTlayout
-- ButtonGroupBar
 */
 
 class MTlayout : public QGridLayout
@@ -47,66 +39,6 @@ private:
 	QLabel *m_tri;
 	QLineEdit *m_enter_metal;
 	QLineEdit *m_enter_tri;
-};
-
-class SelectionType : public QGridLayout
-{
-public:
-	SelectionType(QWidget *parent = 0) : QGridLayout(parent)
-	{
-		m_label_ligne = new QLabel("Type : ");
-		this->addWidget(m_label_ligne, 0, 0);
-		boutton_colonie = new QRadioButton("Colonie");
-		this->addWidget(boutton_colonie, 0, 1);
-		boutton_secteur = new QRadioButton("Secteur");
-		this->addWidget(boutton_secteur, 0, 2);
-	}
-
-private:
-	QLabel *m_label_ligne;
-	QRadioButton *boutton_colonie;
-	QRadioButton *boutton_secteur;
-};
-
-class EntrerCoordonnees : public QGridLayout
-{
-public:
-	EntrerCoordonnees(QWidget *parent = 0) : QGridLayout(parent)
-	{
-		m_label_ligne = new QLabel("Coordonnées : ");
-		this->addWidget(m_label_ligne, 0, 0);
-		m_region = new QLineEdit();
-		this->addWidget(m_region, 0, 1);
-		m_constellation = new QLineEdit();
-		this->addWidget(m_constellation, 0, 2);
-		m_systeme = new QLineEdit();
-		this->addWidget(m_systeme, 0, 3);
-		m_position = new QLineEdit();
-		this->addWidget(m_position, 0, 4);
-	}
-
-private:
-	QLabel *m_label_ligne;
-	QLineEdit *m_region;
-	QLineEdit *m_constellation;
-	QLineEdit *m_systeme;
-	QLineEdit *m_position;
-};
-
-class NiveauSpatio : public QGridLayout
-{
-public:
-	NiveauSpatio(QWidget *parent = 0) : QGridLayout(parent)
-	{
-		m_label_ligne = new QLabel("Niveau du spatioport : ");
-		this->addWidget(m_label_ligne, 0, 0);
-		m_lvl_spatio = new QLineEdit();
-		this->addWidget(m_lvl_spatio, 0, 1);
-	}
-
-private:
-	QLabel *m_label_ligne;
-	QLineEdit *m_lvl_spatio;
 };
 
 class CommonGroupBar : public QGroupBox
@@ -138,6 +70,35 @@ private:
 	QGridLayout *createSpatioLayout();
 };
 
+class ColonieGroupBar : public QGroupBox
+{
+public:
+	ColonieGroupBar(QWidget *parent = 0) : QGroupBox("Données d'une colonie", parent)
+	{
+		m_name = createNameLayout();
+		MTlayout *tmp_def = new MTlayout("Consommation des défenses :");
+		m_def_layout = qobject_cast<QGridLayout *>(tmp_def);
+		MTlayout *tmp_fusion = new MTlayout("Consommation de la fusion :");
+		m_fusion_layout = qobject_cast<QGridLayout *>(tmp_fusion);
+		MTlayout *tmp_pontons = new MTlayout("Gain des pontons :");
+		m_ponton_layout = qobject_cast<QGridLayout *>(tmp_pontons);
+
+		QVBoxLayout *vbox = new QVBoxLayout;
+		vbox->addLayout(m_name, 0);
+		vbox->addLayout(m_def_layout, 1);
+		vbox->addLayout(m_fusion_layout, 2);
+		vbox->addLayout(m_ponton_layout, 3);
+		this->setLayout(vbox);
+	}
+
+private:
+	QGridLayout *m_name;
+	QGridLayout *m_def_layout;
+	QGridLayout *m_fusion_layout;
+	QGridLayout *m_ponton_layout;
+	QGridLayout *createNameLayout();
+};
+
 class PositionForm : public QWidget
 {
 	Q_OBJECT
@@ -147,6 +108,7 @@ public:
 private:
 	QPushButton *m_bouton;
 	CommonGroupBar *m_common;
+	ColonieGroupBar *m_colo;
 	QGridLayout *m_main_layout;
 };
 

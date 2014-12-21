@@ -15,19 +15,8 @@ QGridLayout* CommonGroupBar::createSelectLayout()
 
 QGridLayout* CommonGroupBar::createProdLayout(const QString& desc)
 {
-	QGridLayout *layout = new QGridLayout();
-	QLabel *m_label_ligne = new QLabel(desc);
-	layout->addWidget(m_label_ligne, 0, 0);
-	QLineEdit *m_enter_metal = new QLineEdit();
-	layout->addWidget(m_enter_metal, 0, 1);
-	QLabel *m_metal = new QLabel(" Métal");
-	layout->addWidget(m_metal, 0, 2);
-	QLineEdit *m_enter_tri = new QLineEdit();
-	layout->addWidget(m_enter_tri, 0, 3);
-	QLabel *m_tri = new QLabel(" Tritium");
-	layout->addWidget(m_tri, 0, 4);
-
-	return layout;
+	MTlayout *layout = new MTlayout(desc);
+	return qobject_cast<QGridLayout *>(layout);
 }
 
 QGridLayout* CommonGroupBar::createCoordLayout()
@@ -58,9 +47,22 @@ QGridLayout* CommonGroupBar::createSpatioLayout()
 	return layout;
 }
 
+QGridLayout* ColonieGroupBar::createNameLayout()
+{
+	QGridLayout *layout = new QGridLayout();
+	QLabel *m_label_ligne = new QLabel("Nom de la colonie : ");
+	layout->addWidget(m_label_ligne, 0, 0);
+	QLineEdit *m_name = new QLineEdit();
+	layout->addWidget(m_name, 0, 1);
+
+	return layout;
+}
+
 PositionForm::PositionForm() : QWidget()
 {
 	m_common = new CommonGroupBar();
+	m_colo = new ColonieGroupBar();
 	m_main_layout = new QGridLayout(this);
-	m_main_layout->addWidget(m_common);
+	m_main_layout->addWidget(m_common, 0, 0);
+	m_main_layout->addWidget(m_colo, 1, 0);
 }
