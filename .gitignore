@@ -5,6 +5,12 @@
 *.suo
 *.user
 *.sln.docstates
+*.sln
+*.ico
+*.rc
+*.vcxproj*
+*.qrc
+*.ui
 
 # Build results
 [Dd]ebug/
