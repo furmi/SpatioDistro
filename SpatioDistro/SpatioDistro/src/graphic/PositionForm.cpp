@@ -62,6 +62,7 @@ PositionForm::PositionForm() : QWidget()
 {
 	m_common = new CommonGroupBar();
 	m_colo = new ColonieGroupBar();
+	m_colo->setDisabled(true); //données d'une colo désactivées par défaut
 	m_main_layout = new QGridLayout(this);
 	m_main_layout->addWidget(m_common, 0, 0);
 	m_main_layout->addWidget(m_colo, 1, 0);
